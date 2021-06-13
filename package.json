@@ -26,9 +26,9 @@
       "supertest": "^6.1.3"
     },
     "bugs": {
-      "url": "https://github.com/diogoalmiro/webfocus/issues"
+      "url": "https://github.com/webfocus-js/component/issues"
     },
-    "homepage": "https://github.com/diogoalmiro/webfocus#readme",
+    "homepage": "https://github.com/webfocus-js/app#readme",
     "directories": {
       "test": "test"
     }
