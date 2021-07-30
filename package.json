@@ -1,6 +1,6 @@
 {
     "name": "@webfocus/component",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "This module defines the webfocus/component class to create simple components for the webfocus/app framework",
     "main": "component.js",
     "scripts": {

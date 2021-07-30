@@ -18,6 +18,8 @@ function isString(val){
  */
 class WebfocusComponent extends EventEmitter {
     
+    #EMPTY = Symbol("EMPTY");
+    #config = undefined;
     /**
      * Creates an instance of WebfocusComponent.
      * dirname property will be set to the directory where the constructor was called.
@@ -36,7 +38,7 @@ class WebfocusComponent extends EventEmitter {
             }
         }
         catch(e){
-            throw new Error(`Unable to check ${dirname}`, e);
+            throw new Error(`Unable to check the directory. Error: ${e.message}`);
         }
         this.name = name;
         this.urlname = name.replace(/\s+/g, '-').toLowerCase();
@@ -44,30 +46,28 @@ class WebfocusComponent extends EventEmitter {
         this.staticApp = express.Router();
         this.description = description;
         this.debug = debug(`webfocus:component:${this.urlname}`);
-        const warn = debug(`webfocus:component:${this.urlname}:warning`);
-        warn.enabled = true;
+        this.warn = debug(`webfocus:component:${this.urlname}:warning`);
+        this.warn.enabled = true;
         this.dirname = dirname;
-        let EMPTY = Symbol("EMPTY");
-        let config = EMPTY;
-        this.configuration = new Proxy({}, {
-            set: (obj, prop, value) => {
-                warn("Trying to set read-only configuration");
-                return config[prop]
-            },
-            get: (obj, prop) => {
-                if(config === EMPTY) warn("Trying to read configuration before initialization");
-                return config[prop]
-            } 
-        })
+        this.#config = this.#EMPTY;
         this.once('configuration', (conf) => {
             this.debug("Defining configuration");
-            config = conf;
-            this.emit('configurationReady');
+            this.#config = Object.freeze(conf);
             this.on('configuration', _ => {
-                warn("Ignoring setting configuration more than once");
+                this.warn("Ignoring setting configuration more than once");
             })
         })
         this.staticApp.use(express.static(this.dirname))
+    }
+    
+    get configuration(){
+        if(this.#config === this.#EMPTY) this.warn("Trying to read configuration before initialization");
+        return this.#config;
+    }
+    
+    set configuration(value){
+        this.warn("Trying to set read-only configuration");
+        return this.#config;
     }
 }
 
