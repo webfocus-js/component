@@ -70,3 +70,13 @@ The properties can be extended and modified by the creator of an specific compon
  - `debug` function to debug with the namespace `webfocus:component:${component.urlname}`
  - `dirname` from the constructor argument.
  - `configuration` read-only proxy object to webfocusApp.configuration (it is not ready until the event 'configuration' is emitted)
+
+## Events
+
+### 'configuration'
+
+The 'configuration' event is emitted when the `webfocusApp` starts. It enables access to the 'component.configuration' object.
+
+### 'webfocusApp'
+
+The 'webfocusApp' event is emitted when the component is registered before `webfocusApp` starts. It gives access to the `WebfocusApp` instance.
