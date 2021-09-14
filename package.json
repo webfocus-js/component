@@ -1,11 +1,11 @@
 {
     "name": "@webfocus/component",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "This module defines the webfocus/component class to create simple components for the webfocus/app framework",
     "main": "component.js",
     "scripts": {
-      "test": "mocha",
-      "test:watch": "mocha --watch"
+        "test": "mocha",
+        "test:watch": "mocha --watch"
     },
     "keywords": [
         "webfocus",
@@ -16,21 +16,21 @@
     "author": "diogoalmiro",
     "license": "MIT",
     "dependencies": {
-      "debug": "^2.6.9",
-      "express": "^4.17.1",
-      "open": "^8.0.5"
+        "app-data-folder": "^1.0.0",
+        "debug": "^2.6.9",
+        "express": "^4.17.1",
+        "open": "^8.0.5"
     },
     "repository": "diogoalmiro/webfocus",
     "devDependencies": {
-      "mocha": "^8.3.2",
-      "supertest": "^6.1.3"
+        "mocha": "^8.3.2",
+        "supertest": "^6.1.3"
     },
     "bugs": {
-      "url": "https://github.com/webfocus-js/component/issues"
+        "url": "https://github.com/webfocus-js/component/issues"
     },
     "homepage": "https://github.com/webfocus-js/app#readme",
     "directories": {
-      "test": "test"
+        "test": "test"
     }
-  }
-  
+}

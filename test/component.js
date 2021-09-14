@@ -1,6 +1,7 @@
 const assert = require('assert');
 const createComponent = require('../component');
 const {WebfocusComponent} = createComponent;
+const { statSync } = require("fs")
 
 describe("WebfocusComponent", function(){
 
@@ -13,7 +14,6 @@ describe("WebfocusComponent", function(){
             let component = createComponent();
             assert(component.dirname === __dirname);
         })
-
         it("should throw error", function(){
             try{
                 createComponent(null);
@@ -21,6 +21,15 @@ describe("WebfocusComponent", function(){
             }
             catch(e){
                 assert(true)
+            }
+        })
+        it("should create a \"APPDATA\" folder", function(){
+            let component = createComponent();
+            try{
+                assert(statSync(component.folder).isDirectory());
+            }
+            catch(e){
+                assert(false)
             }
         })
     })

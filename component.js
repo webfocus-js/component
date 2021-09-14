@@ -5,8 +5,9 @@
 const express = require("express");
 const debug = require("debug");
 const path = require("path");
-const { statSync } = require("fs");
+const { statSync, mkdirSync } = require("fs");
 const EventEmitter = require("events").EventEmitter;
+const appDataFolder = require("app-data-folder");
 
 function isString(val){
     return typeof val === 'string' || val instanceof String;
@@ -40,15 +41,22 @@ class WebfocusComponent extends EventEmitter {
         catch(e){
             throw new Error(`Unable to check the directory. Error: ${e.message}`);
         }
+
         this.name = name;
+        this.description = description;
         this.urlname = name.replace(/\s+/g, '-').toLowerCase();
+        this.dirname = dirname;
+        
+        this.folder = appDataFolder(`webfocus-component-${this.urlname}`);
+        mkdirSync(this.folder, { recursive: true }) // Ensure app-data folder is created
+        
         this.app = express.Router();
         this.staticApp = express.Router();
-        this.description = description;
+        
         this.debug = debug(`webfocus:component:${this.urlname}`);
         this.warn = debug(`webfocus:component:${this.urlname}:warning`);
         this.warn.enabled = true;
-        this.dirname = dirname;
+        
         this.#config = this.#EMPTY;
         this.once('configuration', (conf) => {
             this.debug("Defining configuration");
@@ -57,6 +65,7 @@ class WebfocusComponent extends EventEmitter {
                 this.warn("Ignoring setting configuration more than once");
             })
         })
+
         this.staticApp.use(express.static(this.dirname))
     }
     
