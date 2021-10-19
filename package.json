@@ -1,6 +1,6 @@
 {
     "name": "@webfocus/component",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "This module defines the webfocus/component class to create simple components for the webfocus/app framework",
     "main": "component.js",
     "scripts": {
@@ -18,8 +18,7 @@
     "dependencies": {
         "app-data-folder": "^1.0.0",
         "debug": "^2.6.9",
-        "express": "^4.17.1",
-        "open": "^8.0.5"
+        "express": "^4.17.1"
     },
     "repository": "diogoalmiro/webfocus",
     "devDependencies": {
